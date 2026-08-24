@@ -31,6 +31,53 @@ def encode_instruction(instruction: str) -> int:
     # TODO: implementar. Sugerencia: parsear el mnemónico y los operandos,
     # despachar según el formato (R/I/S/B), y ensamblar los campos con
     # operaciones de bits.
+
+    #Aquí se parsea la instrucción en partes: mnemónico y operandos
+    """
+    Va a tomar la instrucción y va a dividir donde se presenten los casos de comas y espacios para 
+    así luego identificar los campos de la instrucción y poder codificarlos en binario.
+        Por ejemplo, si la instrucción es "add x5, x6, x7", se va a dividir en:
+        [
+            "add",
+            "x5",
+            "x6",
+            "x7"    
+        ]
+    
+    """
+    partes_instruccion = instruction.replace(","," ").split();
+
+    mnemonico = partes_instruccion[0]
+
+    if mnemonico == "add":
+        # Aquí se codifica la instrucción "add" en binario
+        # Se deben obtener los registros y codificarlos según el formato R
+        rd = int(partes_instruccion[1][1:])  # x5 -> 5
+        rs1 = int(partes_instruccion[2][1:])  # x6 -> 6
+        rs2 = int(partes_instruccion[3][1:])  # x7 -> 7
+
+        opcode = 0b0110011  # Opcode para instrucciones R
+        funct3 = 0b000      # funct3 para "add"
+        funct7 = 0b0000000  # funct7 para "add"
+
+        # Ensamblar la instrucción en formato R
+        word = (funct7 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
+        return word
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     raise NotImplementedError("encode_instruction: pendiente de implementar")
 
 
