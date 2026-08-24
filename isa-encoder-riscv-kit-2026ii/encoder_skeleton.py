@@ -48,7 +48,7 @@ def encode_instruction(instruction: str) -> int:
     partes_instruccion = instruction.replace(","," ").split();
 
     mnemonico = partes_instruccion[0]
-
+    #Instrucciones de formato R: add, sub, and, or
     if mnemonico in ["add", "sub", "and", "or"]:
         #Formato R
         rd = int(partes_instruccion[1][1:])  # Quitar la 'x' y convertir a entero
@@ -76,20 +76,98 @@ def encode_instruction(instruction: str) -> int:
         # Ensamblar la instrucción en formato R
         word = (funct7 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
         return word
+    #Instrucciones de formato I: addi, andi, lw, lb
+    if mnemonico in ["addi", "andi"]:
+        #Formato I
+        rd = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
+        rs1 = int(partes_instruccion[2][1:])
+        imm = int(partes_instruccion[3])  # Inmediato
+        
+        if mnemonico == "addi":
+            opcode = 0b0010011
+            funct3 = 0b000
+        elif mnemonico == "andi":
+            opcode = 0b0010011
+            funct3 = 0b111
+        
+        imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
+        
+        # Ensamblar la instrucción en formato I
+        word = (imm << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
+        return word
 
+    #Instrucciones de formato I para load: lw, lb
+    if mnemonico in ["lw", "lb"]:
+        #Formato I para load
+        rd = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
+        offset_base = partes_instruccion[2]
+        offset, base = offset_base.split('(')
+        base = base[:-1]  # Quita el paréntesis de cierre
+        rs1 = int(base[1:])  # Quita la 'x' y convertir a entero
+        imm = int(offset)  # Inmediato
+        
+        if mnemonico == "lw":
+            opcode = 0b0000011
+            funct3 = 0b010
+        elif mnemonico == "lb":
+            opcode = 0b0000011
+            funct3 = 0b000
+        
+        imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
+        
+        # Ensamblar la instrucción en formato I
+        word = (imm << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
+        return word           
+    #Instrucciones de formato S: sw, sb
+    if mnemonico in ["sw", "sb"]:
+        #Formato S para store
+        rs2 = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
+        offset_base = partes_instruccion[2]
+        offset, base = offset_base.split('(')
+        base = base[:-1]  # Quita el paréntesis de cierre
+        rs1 = int(base[1:])  # Quita la 'x' y convertir a entero
+        imm = int(offset)  # Inmediato
+        
+        if mnemonico == "sw":
+            opcode = 0b0100011
+            funct3 = 0b010
+        elif mnemonico == "sb":
+            opcode = 0b0100011
+            funct3 = 0b000
+        
+        imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
+        
+        # Ensamblar la instrucción en formato S
+        imm_11_5 = (imm >> 5) & 0x7F #Inmediato de 7 bits (11-5) alto
+        imm_4_0 = imm & 0x1F #Inmediato de 5 bits (4-0) bajo
+        
+        word = (imm_11_5 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (imm_4_0 << 7) | opcode
+        return word
 
-
-
-
-
-
-
-
-
-
-
-
-
+    #Instrucciones de formato B: beq, bne
+    if mnemonico in ["beq", "bne"]:
+        #Formato B para branch
+        rs1 = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
+        rs2 = int(partes_instruccion[2][1:])  # Quita la 'x' y convertir a entero
+        imm = int(partes_instruccion[3])  # Inmediato
+        
+        if mnemonico == "beq":
+            opcode = 0b1100011
+            funct3 = 0b000
+        elif mnemonico == "bne":
+            opcode = 0b1100011
+            funct3 = 0b001
+        
+        imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
+        
+        # Ensamblar la instrucción en formato B
+        imm_12 = (imm >> 12) & 0x1   # Bit 12 del inmediato
+        imm_10_5 = (imm >> 5) & 0x3F # Bits 10-5 del inmediato
+        imm_4_1 = (imm >> 1) & 0xF   # Bits 4-1 del inmediato
+        imm_11 = (imm >> 11) & 0x1   # Bit 11 del inmediato
+        
+        word = (imm_12 << 31) | (imm_10_5 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (imm_4_1 << 8) | (imm_11 << 7) | opcode
+        return word
 
     raise NotImplementedError("encode_instruction: pendiente de implementar")
 
