@@ -49,21 +49,34 @@ def encode_instruction(instruction: str) -> int:
 
     mnemonico = partes_instruccion[0]
 
-    if mnemonico == "add":
-        # Aquí se codifica la instrucción "add" en binario
-        # Se deben obtener los registros y codificarlos según el formato R
-        rd = int(partes_instruccion[1][1:])  # x5 -> 5
-        rs1 = int(partes_instruccion[2][1:])  # x6 -> 6
-        rs2 = int(partes_instruccion[3][1:])  # x7 -> 7
+    if mnemonico in ["add", "sub", "and", "or"]:
+        #Formato R
+        rd = int(partes_instruccion[1][1:])  # Quitar la 'x' y convertir a entero
+        rs1 = int(partes_instruccion[2][1:])
+        rs2 = int(partes_instruccion[3][1:])
 
-        opcode = 0b0110011  # Opcode para instrucciones R
-        funct3 = 0b000      # funct3 para "add"
-        funct7 = 0b0000000  # funct7 para "add"
+        # Aquí se definen los valores de opcode, funct3 y funct7 según el mnemónico
+        if mnemonico == "add":
+            opcode = 0b0110011
+            funct3 = 0b000
+            funct7 = 0b0000000
+        elif mnemonico == "sub":
+            opcode = 0b0110011
+            funct3 = 0b000
+            funct7 = 0b0100000
+        elif mnemonico == "and":
+            opcode = 0b0110011
+            funct3 = 0b111
+            funct7 = 0b0000000
+        elif mnemonico == "or":
+            opcode = 0b0110011
+            funct3 = 0b110
+            funct7 = 0b0000000
 
         # Ensamblar la instrucción en formato R
         word = (funct7 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
         return word
-    
+
 
 
 
