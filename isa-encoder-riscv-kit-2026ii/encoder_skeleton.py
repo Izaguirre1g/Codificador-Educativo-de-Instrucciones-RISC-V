@@ -159,7 +159,7 @@ def encode_instruction(instruction: str) -> int:
             opcode = 0b1100011
             funct3 = 0b001
         
-        imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
+        imm = imm & 0x1FFF  # Asegura que el inmediato sea de 13 bits
         
         # Ensamblar la instrucción en formato B
         imm_12 = (imm >> 12) & 0x1   # Bit 12 del inmediato
@@ -168,7 +168,11 @@ def encode_instruction(instruction: str) -> int:
         imm_11 = (imm >> 11) & 0x1   # Bit 11 del inmediato
         
         word = (imm_12 << 31) | (imm_10_5 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (imm_4_1 << 8) | (imm_11 << 7) | opcode
-        
+        print("IMM ORIGINAL:", imm)
+        print("imm12:", imm_12)
+        print("imm11:", imm_11)
+        print("imm10_5:", imm_10_5)
+        print("imm4_1:", imm_4_1)
         return word
 
     raise NotImplementedError("encode_instruction: pendiente de implementar")
@@ -213,7 +217,7 @@ def explain_instruction(instruction: str, word: int) -> str:
 
     if mnemonico in ["add", "sub", "and", "or"]:
 
-        salida += "Formato identificado: R\n\n"
+        salida += "Tipo de instruccion identificado: R\n\n"
 
 
         # Extraer campos desde la instrucción de 32 bits

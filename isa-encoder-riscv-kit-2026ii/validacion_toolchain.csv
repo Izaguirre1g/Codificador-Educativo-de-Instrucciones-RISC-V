@@ -1,0 +1,37 @@
+Instruccion,Modelo,objdump,Coincide
+"add x5, x6, x7",0x007302b3,0x007302b3,True
+"add x28, x15, x0",0x00078e33,0x00078e33,True
+"add x31, x30, x29",0x01df0fb3,0x01df0fb3,True
+"sub x5, x6, x7",0x407302b3,0x407302b3,True
+"sub x10, x10, x0",0x40050533,0x40050533,True
+"sub x31, x30, x29",0x41df0fb3,0x41df0fb3,True
+"and x5, x6, x7",0x007372b3,0x007372b3,True
+"and x10, x10, x0",0x00057533,0x00057533,True
+"and x31, x30, x29",0x01df7fb3,0x01df7fb3,True
+"or x5, x6, x7",0x007362b3,0x007362b3,True
+"or x10, x10, x0",0x00056533,0x00056533,True
+"or x31, x30, x29",0x01df6fb3,0x01df6fb3,True
+"addi x5, x6, 10",0x00a30293,0x00a30293,True
+"addi x10, x1, -12",0xff408513,0xff408513,True
+"addi x31, x30, 2047",0x7fff0f93,0x7fff0f93,True
+"andi x5, x6, 10",0x00a37293,0x00a37293,True
+"andi x10, x1, -12",0xff40f513,0xff40f513,True
+"andi x31, x30, 2047",0x7fff7f93,0x7fff7f93,True
+"lw x5, 8(x6)",0x00832283,0x00832283,True
+"lw x10, -16(x1)",0xff00a503,0xff00a503,True
+"lw x31, 2047(x30)",0x7fff2f83,0x7fff2f83,True
+"lb x5, 8(x6)",0x00830283,0x00830283,True
+"lb x10, -16(x1)",0xff008503,0xff008503,True
+"lb x31, 2047(x30)",0x7fff0f83,0x7fff0f83,True
+"sw x5, 8(x6)",0x00532423,0x00532423,True
+"sw x10, -16(x1)",0xfea0a823,0xfea0a823,True
+"sw x31, 2047(x30)",0x7fff2fa3,0x7fff2fa3,True
+"sb x5, 8(x6)",0x00530423,0x00530423,True
+"sb x10, -16(x1)",0xfea08823,0xfea08823,True
+"sb x31, 2047(x30)",0x7fff0fa3,0x7fff0fa3,True
+"beq x5, x6, 8",0x00628463,0x00628463,True
+"beq x10, x1, -4",0xfe150ee3,0xfe150ee3,True
+"beq x31, x30, 1024",0x41ef8063,0x41ef8063,True
+"bne x5, x6, 8",0x00629463,0x00629463,True
+"bne x10, x1, -4",0xfe151ee3,0xfe151ee3,True
+"bne x31, x30, 1024",0x41ef9063,0x41ef9063,True
