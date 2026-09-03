@@ -37,8 +37,10 @@ Para correr los 36 casos de prueba se debe estar en el CLI y correr el siguiente
 ```
 python3 test_toolchain.py
 ```
-Ya que por medio de ese .py se toman las instrucciones y se hace el tratamiento de pasarlas a hex y luego hacer la comparacion con el resultado del toolchain; de caso extra se crea un archivo .cvs para tener la informacion. En la siguiente se muestra el resultado esperado:
+Ya que por medio de ese .py se toman las instrucciones y se hace el tratamiento de pasarlas a hex y luego hacer la comparacion con el resultado del toolchain; de caso extra se crea un archivo .cvs para tener la informacion. En la siguiente imagen se muestra el resultado esperado de unas instrucciones:
+
 ![alt text](/images/image.png)
+
 ## 5. Instalacion de Python
 Para tener Python se deben tener los siguientes comandos:
 ```
@@ -49,7 +51,7 @@ sudo apt install python3-pip
 sudo apt install python3-venv python3-dev
 ```
 
-Requisitos:
+Requisitos para el correcto funcionamiento:
 
 - Python 3
 - Ubuntu/Linux

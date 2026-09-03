@@ -1,6 +1,6 @@
 ## Documentacion tecnica
 A continuacion se presenta lo solicitado para el proyecto.
-## 1. Instrucciones soportadas
+## 1. Instrucciones soportadas, descripcion de la arquitectura y decisiones de diseño
 
 El codificador implementa las siguientes instrucciones de la arquitectura
 RISC-V RV32I:
@@ -124,9 +124,11 @@ Posteriormente identifica el formato de la instrucción:
 - B
 
 
-Finalmente ensambla los campos mediante operaciones de desplazamiento
-de bits (`<<`) y combinación lógica OR (`|`).
+Finalmente ensambla los campos mediante operaciones binarias de desplazamiento
+de bits (`<<`) y combinación lógica OR (`|`). Lo anterior se utilizo para contruir la instruccion de 32 bits
+Tambien se tomo en cuenta el manejo de numeros negativos, para representarlos se utilizo el complemento a dos, de esta forma se mantiene la confiabilidad con la forma en que RISC-V manipula y almacena los valores negativos.
 
+Tambien se utilizo el parseo de las instrucciones de entrada para poder realizar las conversiones de las instrucciones a binario y hexadecimal.
 
 Ejemplo:
 
@@ -142,9 +144,10 @@ word = (
 ```
 El resultado es una palabra de 32 bits almacenada como entero.
 
-### explain_instruction()
+La funcion explain_instruction() se encarga de mostrar en consola el tipo de instruccion, los formatos en bin y hex, tambien se muestra como esta dividida cada parte del la instruccion dependiendo del tipo.
 
-Esta funcion se encarga de mostrar en consola el tipo de instruccion, los formatos en bin y hex, tambien se muestra como esta dividida cada parte del la instruccion dependiendo del tipo.
+
+
 ---
 
 # 4. Ejemplos de salida explicativa
@@ -231,6 +234,13 @@ Ejemplo:
 | bne x10, x1, -4      | 0xfe151ee3   | 0xfe151ee3   | True     |
 | bne x31, x30, 1024   | 0x41ef9063   | 0x41ef9063   | True     |
 
+## 6. Evidencias de uso del Toolchain
+Ejecucion del toolchain
 
+![alt text](images/image2.png)
+
+El hexadecimal coincide con la prueba de vectores
+
+![alt text](/images/image3.png)
 ## Referencias
 Andrew Waterman and Krste Asanović. The RISC-V Instruction Set Manual, Volume I: User-Level ISA, Document Version 20191213. RISC-V Foundation, 2019.
