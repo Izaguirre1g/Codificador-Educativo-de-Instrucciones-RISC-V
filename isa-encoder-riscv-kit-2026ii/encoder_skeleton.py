@@ -353,7 +353,7 @@ def explain_instruction(instruction: str, word: int) -> str:
 
         salida += "Representación de campos:\n\n"
 
-        salida += (
+        salida += (git log --oneline -5
             "Bits:       31-20        19-15      14-12      11-7       6-0\n"
         )
 
@@ -450,7 +450,7 @@ def explain_instruction(instruction: str, word: int) -> str:
         salida += "Formato identificado: S\n\n"
 
 
-        # Extraer campos del formato S
+        # Extrae campos del formato S
 
         imm_11_5 = (word >> 25) & 0x7F
         rs2 = (word >> 20) & 0x1F
@@ -581,7 +581,7 @@ def explain_instruction(instruction: str, word: int) -> str:
         salida += "Formato identificado: B\n\n"
 
 
-        # Extraer campos del formato B
+        # Extrae campos del formato B
 
         imm_12 = (word >> 31) & 0x1
         imm_10_5 = (word >> 25) & 0x3F
@@ -593,7 +593,7 @@ def explain_instruction(instruction: str, word: int) -> str:
         opcode = word & 0x7F
 
 
-        # Reconstruir inmediato completo
+        # Reconstruye inmediato completo
 
         imm = (
             (imm_12 << 12) |
