@@ -168,11 +168,7 @@ def encode_instruction(instruction: str) -> int:
         imm_11 = (imm >> 11) & 0x1   # Bit 11 del inmediato
         
         word = (imm_12 << 31) | (imm_10_5 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (imm_4_1 << 8) | (imm_11 << 7) | opcode
-        print("IMM ORIGINAL:", imm)
-        print("imm12:", imm_12)
-        print("imm11:", imm_11)
-        print("imm10_5:", imm_10_5)
-        print("imm4_1:", imm_4_1)
+        
         return word
 
     raise NotImplementedError("encode_instruction: pendiente de implementar")
@@ -188,8 +184,6 @@ def explain_instruction(instruction: str, word: int) -> str:
     criterio, siempre que sea claro.
     """
     # TODO: implementar.
-
-def explain_instruction(instruction: str, word: int) -> str:
     """
     Muestra la explicación de la codificación de una instrucción RISC-V.
     """
@@ -241,14 +235,14 @@ def explain_instruction(instruction: str, word: int) -> str:
 
         salida += (
             "Campo:      funct7       rs2         rs1         "
-            "funct3     rd          opcode\n"
+            "funct3     rd        opcode\n"
         )
 
         salida += (
-            "           "
-            f"{funct7:07b}     "
-            f"{rs2:05b}      "
-            f"{rs1:05b}      "
+            "            "
+            f"{funct7:07b}      "
+            f"{rs2:05b}       "
+            f"{rs1:05b}         "
             f"{funct3:03b}     "
             f"{rd:05b}      "
             f"{opcode:07b}\n\n"
@@ -362,14 +356,14 @@ def explain_instruction(instruction: str, word: int) -> str:
         )
 
         salida += (
-            "Campo:      imm          rs1        funct3     rd         opcode\n\n"
+            "Campo:      imm          rs1        funct3     rd        opcode\n\n"
         )
 
 
         salida += (
-            f"           {imm:012b}   "
-            f"{rs1:05b}      "
-            f"{funct3:03b}     "
+            f"         {imm:012b}    "
+            f"{rs1:05b}       "
+            f"{funct3:03b}      "
             f"{rd:05b}      "
             f"{opcode:07b}\n\n"
         )
@@ -485,11 +479,11 @@ def explain_instruction(instruction: str, word: int) -> str:
 
 
         salida += (
-            "           "
+            "            "
             f"{imm_11_5:07b}     "
-            f"{rs2:05b}      "
-            f"{rs1:05b}      "
-            f"{funct3:03b}     "
+            f"{rs2:05b}       "
+            f"{rs1:05b}         "
+            f"{funct3:03b}        "
             f"{imm_4_0:05b}      "
             f"{opcode:07b}\n\n"
         )
@@ -610,25 +604,25 @@ def explain_instruction(instruction: str, word: int) -> str:
 
 
         salida += (
-            "Bits:       31      30-25       24-20       19-15       "
+            "Bits:        31      30-25       24-20       19-15       "
             "14-12      11-8       7        6-0\n"
         )
 
         salida += (
-            "Campo:      imm12    imm10:5     rs2         rs1         "
+            "Campo:      imm12    imm10:5     rs2         rs1        "
             "funct3     imm4:1     imm11    opcode\n\n"
         )
 
 
         salida += (
-            "           "
+            "             "
             f"{imm_12:b}       "
-            f"{imm_10_5:06b}      "
+            f"{imm_10_5:06b}     "
             f"{rs2:05b}      "
-            f"{rs1:05b}      "
-            f"{funct3:03b}     "
-            f"{imm_4_1:04b}      "
-            f"{imm_11:b}       "
+            f"{rs1:05b}         "
+            f"{funct3:03b}        "
+            f"{imm_4_1:04b}        "
+            f"{imm_11:b}      "
             f"{opcode:07b}\n\n"
         )
 

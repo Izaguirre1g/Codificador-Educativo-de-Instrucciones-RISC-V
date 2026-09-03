@@ -1,2 +1,49 @@
-# Codificador Educativo de Instrucciones RISC-V
-El estudiante implementará una herramienta que traduzca una única instrucción del subconjunto RISC-V RV32I definido en este documento a su codificación binaria de 32 bits, mostrando de forma visual el significado de cada campo del formato correspondiente (R, I, S o B).
+## 1. Instalación del toolchain RISC-V
+
+El proyecto fue validado utilizando el siguiente toolchain:
+
+Instalación en Ubuntu:
+
+```bash
+sudo apt update
+
+sudo apt install binutils-riscv64-unknown-elf
+riscv64-unknown-elf-as --version
+riscv64-unknown-elf-objdump --version
+``` 
+## 2. Uso de la herramienta 
+
+Se debe ingresar a la linea de comandos del sistema, en este caso se utilizo Ubuntu.
+Una vez en el CLI se deben colocar los siguientes comandos: 
+```
+printf 'add x5, x6, x7\n' > /tmp/t.s
+riscv64-unknown-elf-as -march=rv32i -mabi=ilp32 -o /tmp/t.o /tmp/t.s
+riscv64-unknown-elf-objdump -d /tmp/t.o
+```
+Con esto se podra ver el valor que genera el toolchain y luego comparar el valor con lo que se hizo a mano.
+## 3. Uso del ./run.sh
+En caso de que el comando no funcione se debe colocar primero el siguiente comando:
+```
+chmod +x run.sh
+```
+Finalmente se puede ejecutar el siguiente comando con su correspondiente instruccion:
+```
+./run.sh "instruccion"
+```
+Luego de eso se mostrara la informacion correspondiente con la instruccion ingresada
+
+## 4. Instalacion de Python
+Para tener Python se deben tener los siguientes comandos:
+```
+sudo apt update
+sudo apt install python3
+python3 --version
+sudo apt install python3-pip
+sudo apt install python3-venv python3-dev
+```
+
+Requisitos:
+
+- Python 3
+- Ubuntu/Linux
+- Toolchain RISC-V instalado
