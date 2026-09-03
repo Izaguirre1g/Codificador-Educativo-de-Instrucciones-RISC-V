@@ -49,7 +49,7 @@ funct3 = 000
 funct7 = 0000000
 
 Ejemplo de la salidad explicativa para el registro tipo R:
-![alt text](images/image.png)
+
 ---
 
 ### Instruccion tipo I
@@ -65,6 +65,7 @@ Estructura:
 | funct3|14-12|
 | rd|11-7|
 |opcode|6-0|
+
 
 
 ---
@@ -103,6 +104,7 @@ Estructura:
 | imm[4:1]|11-8|
 | imm[11]|7|
 | opcode|6-0|
+
 
 ## 3. Estructura del código
 
@@ -146,6 +148,7 @@ word = (
     rd << 7 |
     opcode
 )
+```
 El resultado es una palabra de 32 bits almacenada como entero.
 
 ### explain_instruction()
@@ -154,19 +157,32 @@ ESta funcion se encarga de mostrar en consola el tipo de instruccion, los format
 
 # 4. Ejemplos de salida explicativa
 
-Aquí debes colocar capturas o texto de 4 instrucciones:
-
 Una por formato:
 
 - R → add
 - I → addi
 - S → sw
 - B → beq
+Para instrucciones Tipo R
 
 Ejemplo:
+![alt text](images/Parte1TipoR.png)
+![alt text](images/Parte2TipoR.png)
+Para instrucciones Tipo I
 
+Ejemplo:
+![alt text](images/Parte1TipoI.png)
+![alt text](images/Parte2TipoI.png)
+Para instrucciones Tipo S
 
+Ejemplo:
+![alt text](images/Parte1TipoS.png)
+![alt text](images/Parte2TipoS.png)
+Para instrucciones Tipo B
 
+Ejemplo:
+![alt text](images/Parte1TipoB.png)
+![alt text](images/Parte2TipoB.png)
 ## 5. Validación contra herramienta oficial
 
 La validación se realizó utilizando el toolchain oficial RISC-V.
@@ -183,7 +199,7 @@ La comparación se realizó mediante:
 
 Ejemplo:
 
-| Instrucción          | Hexade       | objdump      | Resultado |
+| Instrucción          | Hexadecimal       | objdump      | Resultado |
 |----------------------|--------------|--------------|----------|
 | add x5, x6, x7       | 0x007302b3   | 0x007302b3   | True     |
 | add x28, x15, x0     | 0x00078e33   | 0x00078e33   | True     |
