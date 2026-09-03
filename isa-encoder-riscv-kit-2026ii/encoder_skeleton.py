@@ -50,8 +50,8 @@ def encode_instruction(instruction: str) -> int:
     mnemonico = partes_instruccion[0]
     #Instrucciones de formato R: add, sub, and, or
     if mnemonico in ["add", "sub", "and", "or"]:
-        #Formato R
-        rd = int(partes_instruccion[1][1:])  # Quitar la 'x' y convertir a entero
+        #Instruccion tipo R
+        rd = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
         rs1 = int(partes_instruccion[2][1:])
         rs2 = int(partes_instruccion[3][1:])
 
@@ -73,13 +73,13 @@ def encode_instruction(instruction: str) -> int:
             funct3 = 0b110
             funct7 = 0b0000000
 
-        # Ensamblar la instrucción en formato R
+        # Ensambla la instrucción en tipo R
         
         word = (funct7 << 25) | (rs2 << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
         return word
     #Instrucciones de formato I: addi, andi, lw, lb
     if mnemonico in ["addi", "andi"]:
-        #Formato I
+        #Instruccion tipo I
         rd = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
         rs1 = int(partes_instruccion[2][1:])
         imm = int(partes_instruccion[3])  # Inmediato
@@ -93,13 +93,13 @@ def encode_instruction(instruction: str) -> int:
         
         imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
         
-        # Ensamblar la instrucción en formato I
+        # Ensambla la instrucción en tipo I
         word = (imm << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
         return word
 
     #Instrucciones de formato I para load: lw, lb
     if mnemonico in ["lw", "lb"]:
-        #Formato I para load
+        #Instruccion tipo I para load
         rd = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
         offset_base = partes_instruccion[2]
         offset, base = offset_base.split('(')
@@ -116,12 +116,12 @@ def encode_instruction(instruction: str) -> int:
         
         imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
         
-        # Ensamblar la instrucción en formato I
+        # Ensambla la instrucción en tipo I
         word = (imm << 20) | (rs1 << 15) | (funct3 << 12) | (rd << 7) | opcode
         return word           
     #Instrucciones de formato S: sw, sb
     if mnemonico in ["sw", "sb"]:
-        #Formato S para store
+        #Instrucion tipo S para store
         rs2 = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
         offset_base = partes_instruccion[2]
         offset, base = offset_base.split('(')
@@ -138,7 +138,7 @@ def encode_instruction(instruction: str) -> int:
         
         imm = imm & 0xFFF  # Asegura que el inmediato sea de 12 bits
         
-        # Ensamblar la instrucción en formato S
+        # Ensambla la instrucción en tipo S
         imm_11_5 = (imm >> 5) & 0x7F #Inmediato de 7 bits (11-5) alto
         imm_4_0 = imm & 0x1F #Inmediato de 5 bits (4-0) bajo
         
@@ -147,7 +147,7 @@ def encode_instruction(instruction: str) -> int:
 
     #Instrucciones de formato B: beq, bne
     if mnemonico in ["beq", "bne"]:
-        #Formato B para branch
+        #Instruccion tipo B para branch
         rs1 = int(partes_instruccion[1][1:])  # Quita la 'x' y convertir a entero
         rs2 = int(partes_instruccion[2][1:])  # Quita la 'x' y convertir a entero
         imm = int(partes_instruccion[3])  # Inmediato
@@ -161,7 +161,7 @@ def encode_instruction(instruction: str) -> int:
         
         imm = imm & 0x1FFF  # Asegura que el inmediato sea de 13 bits
         
-        # Ensamblar la instrucción en formato B
+        # Ensambla la instrucción en tipo B
         imm_12 = (imm >> 12) & 0x1   # Bit 12 del inmediato
         imm_10_5 = (imm >> 5) & 0x3F # Bits 10-5 del inmediato
         imm_4_1 = (imm >> 1) & 0xF   # Bits 4-1 del inmediato
@@ -206,7 +206,7 @@ def explain_instruction(instruction: str, word: int) -> str:
 
 
     # ============================
-    # FORMATO R
+    # Instruccion tipo R
     # ============================
 
     if mnemonico in ["add", "sub", "and", "or"]:
@@ -335,7 +335,9 @@ def explain_instruction(instruction: str, word: int) -> str:
         
         return salida
 
-
+    # ============================
+    # Instruccion tipo I
+    # ============================
     elif mnemonico in ["addi", "andi", "lw", "lb"]:
 
         salida += "Formato identificado: I\n\n"
@@ -440,7 +442,9 @@ def explain_instruction(instruction: str, word: int) -> str:
             "Para este formato corresponde a instrucciones tipo I.\n"
         )
         return salida
-
+    # ============================
+    # Instruccion tipo S
+    # ============================
     elif mnemonico in ["sw", "sb"]:
 
         salida += "Formato identificado: S\n\n"
@@ -569,7 +573,9 @@ def explain_instruction(instruction: str, word: int) -> str:
         )
 
         return salida
-    
+    # ============================
+    # Instruccion tipo B
+    # ============================
     elif mnemonico in ["beq", "bne"]:
 
         salida += "Formato identificado: B\n\n"
