@@ -21,7 +21,7 @@ Los campos utilizados para generar las instrucciones fueron obtenidos del
 manual oficial:
 
 RISC-V User-Level ISA Volume I:
-Unprivileged ISA (versión 20191213).
+Unprivileged ISA (versión 20191213) de la pagina 130 del libro.
 
 Cada instrucción se divide en campos dependiendo del formato utilizado.
 
@@ -40,15 +40,6 @@ La estructura es:
 | rd | 11-7 |
 | opcode | 6-0 |
 
-Ejemplo:
-add x5, x6, x7
-
-Se utilizan:
-opcode = 0110011
-funct3 = 000
-funct7 = 0000000
-
-Ejemplo de la salidad explicativa para el registro tipo R:
 
 ---
 
@@ -152,7 +143,8 @@ word = (
 El resultado es una palabra de 32 bits almacenada como entero.
 
 ### explain_instruction()
-ESta funcion se encarga de mostrar en consola el tipo de instruccion, los formatos en bin y hex, tambien se muestra como esta dividida cada parte del la instruccion dependiendo del tipo.
+
+Esta funcion se encarga de mostrar en consola el tipo de instruccion, los formatos en bin y hex, tambien se muestra como esta dividida cada parte del la instruccion dependiendo del tipo.
 ---
 
 # 4. Ejemplos de salida explicativa
@@ -185,7 +177,7 @@ Ejemplo:
 ![alt text](images/Parte2TipoB.png)
 ## 5. Validación contra herramienta oficial
 
-La validación se realizó utilizando el toolchain oficial RISC-V.
+La validación se realizó utilizando el toolchain oficial RISC-V llamado RISC-V GNU Toolchain o que en CLI se coloca como: riscv64-unknown-elf-gcc toolchain
 
 Para cada instrucción se generaron tres casos diferentes,
 considerando registros diferentes y valores inmediatos positivos,
@@ -194,8 +186,9 @@ negativos y límites.
 La comparación se realizó mediante:
 
 - codificación generada por el estudiante
-- codificación obtenida mediante objdump
+- codificación obtenida mediante objdump que viene del toolchain
 
+La siguiente tabla generada en Excel se obtuvo por medio de un script en Python que automatiza los 36 casos para los 4 tipos de instrucciones. En la columna resultado se tiene la condicion de TRUE porque la coincidencia entre las columnas 'Hexadecimal' y 'objdump' se cumplen.
 
 Ejemplo:
 

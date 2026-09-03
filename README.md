@@ -32,7 +32,14 @@ Finalmente se puede ejecutar el siguiente comando con su correspondiente instruc
 ```
 Luego de eso se mostrara la informacion correspondiente con la instruccion ingresada
 
-## 4. Instalacion de Python
+## 4. Correr los 36 casos de prueba
+Para correr los 36 casos de prueba se debe estar en el CLI y correr el siguiente comando:
+```
+python3 test_toolchain.py
+```
+Ya que por medio de ese .py se toman las instrucciones y se hace el tratamiento de pasarlas a hex y luego hacer la comparacion con el resultado del toolchain; de caso extra se crea un archivo .cvs para tener la informacion. En la siguiente se muestra el resultado esperado:
+![alt text](/images/image.png)
+## 5. Instalacion de Python
 Para tener Python se deben tener los siguientes comandos:
 ```
 sudo apt update
